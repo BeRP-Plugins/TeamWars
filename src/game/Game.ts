@@ -31,6 +31,7 @@ export class Game extends EventEmitter {
         hasLandmark: true,
       },
     }
+    private playersAlive = new Map<string, string>()
 
     constructor(api: PluginApi, plugin: TeamWars) {
       super()
@@ -50,10 +51,29 @@ export class Game extends EventEmitter {
         return player.sendMessage("§aYou have joined the Pre-Game que.")
       })
       this.api.getEventManager().on("PlayerLeft", (player) => { 
-        // TODO: handle gamestages
-        if (!this.pregameQue.has(player.getName())) return
-        this.pregameQue.delete(player.getName())
-        this.api.getLogger().warn(`${player.getName()} was in the pregame que, but decided to leave the game. They are no longer in the que.`)
+        if (this.gameStage == "pregame") {
+          if (!this.pregameQue.has(player.getName())) return
+          this.pregameQue.delete(player.getName())
+          this.api.getLogger().warn(`${player.getName()} was in the pregame que, but decided to leave the game. They are no longer in the que.`)
+        } else if (this.gameStage == "game") {
+          if (!this.playersAlive.has(player.getName())) return
+          const team = this.playersAlive.get(player.getName())
+          this.playersAlive.delete(player.getName())
+          switch (team) {
+          case "red":
+            this.teams.red.players.delete(player.getName())
+            break
+          case "blue":
+            this.teams.blue.players.delete(player.getName())
+            break
+          case "yellow":
+            this.teams.yellow.players.delete(player.getName())
+            break
+          case "green":
+            this.teams.green.players.delete(player.getName())
+            break
+          }
+        }
       })
     }
 
@@ -86,33 +106,43 @@ export class Game extends EventEmitter {
         switch (curTeam) {
         case 0:
           this.teams.red.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "red")
           break
         case 1:
           this.teams.blue.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "blue")
           break
         case 2:
           this.teams.yellow.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "yellow")
           break
         case 3:
           this.teams.green.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "green")
           break
         case 4:
           this.teams.red.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "red")
           break
         case 5:
           this.teams.blue.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "blue")
           break
         case 6:
           this.teams.yellow.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "yellow")
           break
         case 7:
           this.teams.green.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "green")
           break
         case 8:
           this.teams.red.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "red")
           break
         case 9:
           this.teams.blue.players.set(player.getName(), player)
+          this.playersAlive.set(player.getName(), "blue")
           break
         }
         curTeam ++
