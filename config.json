@@ -1,0 +1,23 @@
+{
+  "gameSettings": {
+    "minPlayersForStart": 1,
+    "teamSpawnLocations": {
+      "red": "0 43 77",
+      "blue": "0 43 -77",
+      "yellow": "77 43 0",
+      "green": "-77 43 0"
+    }
+  },
+  "timers": {
+    "preGameTimer": {
+      "minutes": 0,
+      "seconds": 30
+    },
+    "gameTimer": {
+      "minutes": 15,
+      "seconds": 0
+    }
+  },
+  "startGameCommands": ["say Game Started!"],
+  "endGameCommands": ["say Game Ended!"]
+}

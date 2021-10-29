@@ -1,0 +1,23 @@
+{
+  "name": "teamwars",
+  "displayName": "TeamWars",
+  "color": "#34c946",
+  "version": "1.0.0",
+  "description": "A BeRP plugin made for team based minigame realms.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeRP-Plugins/TeamWars.git"
+  },
+  "author": "MCBE Utilities",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BeRP-Plugins/TeamWars/issues"
+  },
+  "homepage": "https://github.com/BeRP-Plugins/TeamWars#readme"
+}
