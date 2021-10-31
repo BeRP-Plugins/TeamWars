@@ -1,6 +1,7 @@
 export interface Config {
   gameSettings: {
     minPlayersForStart: number
+    respawnTimerLocation: string
     teamSpawnLocations: {
       red: string
       blue: string
@@ -14,6 +15,10 @@ export interface Config {
       seconds: number
     }
     gameTimer: {
+      minutes: number
+      seconds: number
+    }
+    respawn: {
       minutes: number
       seconds: number
     }

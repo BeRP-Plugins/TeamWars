@@ -4,6 +4,7 @@ import {
   Player,
   PluginApi,
 } from '../@interface/pluginApi.i'
+import { Respawn } from './Respawn'
 import { Timer } from './Timer'
 
 export class Game extends EventEmitter {
@@ -73,6 +74,45 @@ export class Game extends EventEmitter {
             this.teams.green.players.delete(player.getName())
             break
           }
+        }
+      })
+      this.api.getEventManager().on("PlayerDied", async (data) => {
+        if (!this.playersAlive.has(data.player.getName())) return
+        const team = this.playersAlive.get(data.player.getName())
+        this.playersAlive.delete(data.player.getName())
+        switch (team) {
+        case "red":
+          if (this.teams.red.hasLandmark) {
+            const res = await new Respawn(this.api, this.plugin, data.player).start()
+            if (!res) return //TODO: Do something
+
+            return data.player.executeCommand(`tp @s ${this.plugin.config.gameSettings.teamSpawnLocations.red}`)
+          }
+          break
+        case "blue":
+          if (this.teams.blue.hasLandmark) {
+            const res = await new Respawn(this.api, this.plugin, data.player).start()
+            if (!res) return //TODO: Do something
+
+            return data.player.executeCommand(`tp @s ${this.plugin.config.gameSettings.teamSpawnLocations.blue}`)
+          }
+          break
+        case "yellow":
+          if (this.teams.yellow.hasLandmark) {
+            const res = await new Respawn(this.api, this.plugin, data.player).start()
+            if (!res) return //TODO: Do something
+
+            return data.player.executeCommand(`tp @s ${this.plugin.config.gameSettings.teamSpawnLocations.yellow}`)
+          }
+          break
+        case "green":
+          if (this.teams.green.hasLandmark) {
+            const res = await new Respawn(this.api, this.plugin, data.player).start()
+            if (!res) return //TODO: Do something
+
+            return data.player.executeCommand(`tp @s ${this.plugin.config.gameSettings.teamSpawnLocations.green}`)
+          }
+          break
         }
       })
     }

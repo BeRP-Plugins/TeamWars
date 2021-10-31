@@ -1,6 +1,7 @@
 {
   "gameSettings": {
     "minPlayersForStart": 1,
+    "respawnTimerLocation": "0 3000 0",
     "teamSpawnLocations": {
       "red": "0 43 77",
       "blue": "0 43 -77",
@@ -16,6 +17,10 @@
     "gameTimer": {
       "minutes": 15,
       "seconds": 0
+    },
+    "respawn": {
+      "minutes": 0,
+      "seconds": 5
     }
   },
   "startGameCommands": ["say Game Started!"],
